@@ -12,7 +12,7 @@ root.render(
   <React.StrictMode>
     <Router>
       <Routes>
-        <Route path="/edit/:id" element={<EditContactPage/>} />
+        <Route path="/edit/:phone" element={<EditContactPage/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/" element={<App/>} />
       </Routes>
