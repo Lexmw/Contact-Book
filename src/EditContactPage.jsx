@@ -33,8 +33,14 @@ const EditContactPage = ({ match }) => {
   };
 
   const saveContact = () => {
-    // Save the edited contact (you can update the contact in your data store or API)
-    console.log("Contact saved:", contact);
+    axios
+    .put(
+      `https://z6lnh50aua.execute-api.us-east-2.amazonaws.com/dev/updateContact?phone=${phone}`,
+      contact
+    )
+    .catch(function (error) {
+      console.log("Updated New Contact:", phone, error);
+    });
   };
 
   return (
@@ -124,18 +130,6 @@ const EditContactPage = ({ match }) => {
                 onChange={handleInputChange}
               ></textarea>
             </div>
-            {/* <div className="mb-3">
-        <label htmlFor="picture" className="form-label">
-          Picture
-        </label>
-        <input
-          type="file"
-          className="form-control-file"
-          id="picture"
-          accept="image/*"
-          onChange={handleImageUpload}
-        />
-      </div> */}
             <button
               type="button"
               className="btn btn-primary"
