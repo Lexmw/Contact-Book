@@ -6,12 +6,14 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./Login";
 import EditContactPage from "./EditContactPage";
+import ContactTableRedesign from "./ContactList redesign";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Router>
       <Routes>
+        <Route path="/redesign" element={<ContactTableRedesign/>} />
         <Route path="/edit/:phone" element={<EditContactPage/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/" element={<App/>} />

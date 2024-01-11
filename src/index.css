@@ -11,3 +11,41 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+#new-contact-button {
+  top:10px;
+  width: 40px;
+  transition: width .5s ;
+}
+
+.hide {
+  display: none;
+}
+#new-contact-button:hover{
+  width: 200px;
+}
+
+#new-contact-button:hover > .hide {
+  display: block;
+  width: 180px;
+  text-align: center;
+}
+
+.back-text {
+  display: none;
+  height: 25%;
+  margin-left: 10px;
+}
+
+.back-link:hover + .back-text {
+  display: block;
+}
+
+.spinner {
+  width: 100%;
+  height: 100%;
+  left:0;
+  background-color: #ccf2ff7f;
+  font-size: 30px;
+}

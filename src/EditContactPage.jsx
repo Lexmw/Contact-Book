@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Spinner from "react-bootstrap/Spinner";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -13,7 +14,6 @@ const EditContactPage = ({ match }) => {
   });
   const { phone } = useParams();
 
-  console.log("param", phone);
   useEffect(() => {
     axios
       .get(
@@ -32,11 +32,6 @@ const EditContactPage = ({ match }) => {
     setContact({ ...contact, [name]: value });
   };
 
-  // Function to handle image upload (you'll need to implement this)
-  // const handleImageUpload = (e) => {
-  //   // Handle image upload logic here
-  // };
-
   const saveContact = () => {
     // Save the edited contact (you can update the contact in your data store or API)
     console.log("Contact saved:", contact);
@@ -44,97 +39,113 @@ const EditContactPage = ({ match }) => {
 
   return (
     <div className="edit container my-5 ">
-      <div className="row mb-5">
-        <div className="col-md-1 align-baseline py-3">
-          <Link to="/">⬅ Home</Link>
+      {contact.firstName === "" ? (
+        <div className="spinner d-flex align-items-center justify-content-center position-absolute top-0">
+          <Spinner animation="border" variant="dark" />
         </div>
-        <h2 className="text-primary text-center col-md-11">
-          Edit {contact.firstName} {contact.lastName}'s Contact
-        </h2>
-      </div>
-      <form>
-        <div className="row mb-3">
-          <div className="mb-3 col-md-6">
-            <label htmlFor="firstName" className="form-label">
-              First Name
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="firstName"
-              name="firstName"
-              value={contact.firstName}
-              onChange={handleInputChange}
-            />
+      ) : (
+        <div>
+          <div className="row mb-5">
+            <div className="col-md-1 align-baseline py-3 d-flex flex-row align-items-center">
+              <Link to="/" className="fs-1 text-decoration-none back-link">
+                {" "}
+                👈
+              </Link>
+              <h5 className="back-text">Back</h5>
+            </div>
+            <h2 className="text-primary text-center col-md-11">
+              Edit {contact.firstName} {contact.lastName}'s Contact
+            </h2>
           </div>
-          <div className="mb-3 col-md-6">
-            <label htmlFor="lastName" className="form-label">
-              Last Name
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="lastName"
-              name="lastName"
-              value={contact.lastName}
-              onChange={handleInputChange}
-            />
-          </div>
+          <form>
+            <div className="row mb-3">
+              <div className="mb-3 col-md-6">
+                <label htmlFor="firstName" className="form-label">
+                  First Name
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="firstName"
+                  name="firstName"
+                  value={contact.firstName}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="mb-3 col-md-6">
+                <label htmlFor="lastName" className="form-label">
+                  Last Name
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="lastName"
+                  name="lastName"
+                  value={contact.lastName}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </div>
+            <div className="mb-3">
+              <label htmlFor="email" className="form-label">
+                Email
+              </label>
+              <input
+                type="email"
+                className="form-control"
+                id="email"
+                name="email"
+                value={contact.email}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="phone" className="form-label">
+                Phone Number
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="phone"
+                name="phone"
+                value={contact.phone}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="notes" className="form-label">
+                Notes
+              </label>
+              <textarea
+                className="form-control"
+                id="notes"
+                name="notes"
+                value={contact.notes}
+                onChange={handleInputChange}
+              ></textarea>
+            </div>
+            {/* <div className="mb-3">
+        <label htmlFor="picture" className="form-label">
+          Picture
+        </label>
+        <input
+          type="file"
+          className="form-control-file"
+          id="picture"
+          accept="image/*"
+          onChange={handleImageUpload}
+        />
+      </div> */}
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={saveContact}
+            >
+              Save
+            </button>
+          </form>
         </div>
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">
-            Email
-          </label>
-          <input
-            type="email"
-            className="form-control"
-            id="email"
-            name="email"
-            value={contact.email}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="phone" className="form-label">
-            Phone Number
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="phone"
-            name="phone"
-            value={contact.phone}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="notes" className="form-label">
-            Notes
-          </label>
-          <textarea
-            className="form-control"
-            id="notes"
-            name="notes"
-            value={contact.notes}
-            onChange={handleInputChange}
-          ></textarea>
-        </div>
-        {/* <div className="mb-3">
-          <label htmlFor="picture" className="form-label">
-            Picture
-          </label>
-          <input
-            type="file"
-            className="form-control-file"
-            id="picture"
-            accept="image/*"
-            onChange={handleImageUpload}
-          />
-        </div> */}
-        <button type="button" className="btn btn-primary" onClick={saveContact}>
-          Save
-        </button>
-      </form>
+      )}
     </div>
   );
 };

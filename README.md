@@ -31,6 +31,17 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+### `npm run deploy-dev`
+
+Run this command to deploy your code to the live site. To add your credentials to the AWS CLI install the VSCode extension "AWS CLI Configure". Once this is installed login into your aws account, head to "Command line or programmatic access", and copy the AWS credentials file (Short-term credentials). Add these credentials to the AWS CLI credential file in vscode with "CMD + shift + p"(mac) or "CTRL + shift + p"(windows). Be sure to save the file. 
+
+Now update the script, add your profile name, found in the square brackets at the top of your credential file.
+
+Example of the final script:     
+
+"deploy-dev": "aws s3 sync build/ s3://contacts.communitydayaccelerator.com --cache-control max-age=86400 --profile 1234567_ThisIsMy_DeveloperUserAccess --region us-east-2"
+
+
 ### `npm run eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can't go back!**
