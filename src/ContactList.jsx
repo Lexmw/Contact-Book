@@ -20,14 +20,14 @@ const ContactTable = () => {
   const [editHoverState, setEditHoverState] = useState(-1);
   const [deleteModalContent, setDeleteModalContent] = useState({});
 
-  const rest_api_id = process.env.REACT_APP_REST_API_ID;
+  const restapi_id = process.env.REACT_APP_REST_API_ID;
   const region = process.env.REACT_APP_REGION;
   const stage_name = process.env.REACT_APP_STAGE_NAME;
 
   useEffect(() => {
     const dataFetch = async () => {
       try {
-        const response = await axios.get(`https://${rest_api_id}.execute-api.${region}.amazonaws.com/${stage_name}/allContacts`);
+        const response = await axios.get(`https://${restapi_id}.execute-api.${region}.amazonaws.com/${stage_name}/allContacts`);
         setContacts(response.data);
       } catch (error) {
         console.log("Catch:", error);
@@ -48,7 +48,7 @@ const ContactTable = () => {
   const postNewContact = async (newContact) => {
     try {
       await axios.post(
-        `https://${rest_api_id}.execute-api.${region}.amazonaws.com/${stage_name}/createContact`,
+        `https://${restapi_id}.execute-api.${region}.amazonaws.com/${stage_name}/createContact`,
         newContact
       );
       setContacts([...contacts, newContact]);
@@ -60,7 +60,7 @@ const ContactTable = () => {
   const deleteContact = async (phone) => {
     try {
       await axios.delete(
-        `https://${rest_api_id}.execute-api.${region}.amazonaws.com/${stage_name}/deleteContact?phone=${phone}`
+        `https://${restapi_id}.execute-api.${region}.amazonaws.com/${stage_name}/deleteContact?phone=${phone}`
       );
       const filteredContacts = contacts.filter((contact) => contact.phone !== phone);
       setContacts([...filteredContacts]);

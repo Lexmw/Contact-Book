@@ -16,7 +16,7 @@ const EditContactPage = ({ match }) => {
   const [saveToast, setSaveToast] = useState(false);
   const { phone } = useParams();
 
-  const rest_api_id = process.env.REACT_APP_REST_API_ID;
+  const restapi_id = process.env.REACT_APP_REST_API_ID;
   const region = process.env.REACT_APP_REGION;
   const stage_name = process.env.REACT_APP_STAGE_NAME;
 
@@ -24,7 +24,7 @@ const EditContactPage = ({ match }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://${rest_api_id}.execute-api.${region}.amazonaws.com/${stage_name}/contact?phone=${phone}`
+          `https://${restapi_id}.execute-api.${region}.amazonaws.com/${stage_name}/contact?phone=${phone}`
         );
         setContact(response.data);
       } catch (error) {
@@ -43,7 +43,7 @@ const EditContactPage = ({ match }) => {
   const saveContact = async () => {
     try {
       await axios.put(
-        `https://${rest_api_id}.execute-api.${region}.amazonaws.com/${stage_name}/updateContact?phone=${phone}`,
+        `https://${restapi_id}.execute-api.${region}.amazonaws.com/${stage_name}/updateContact?phone=${phone}`,
         contact
       );
       toastTrigger();

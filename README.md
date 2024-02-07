@@ -1,8 +1,19 @@
 # Contact-Book
 This is a simple front end that takes addresses and saves them into a table for you to see all the contacts you meet.
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+You can interact with the deployed application at [contacts.communitydayaccelerator.com/](https://contacts.communitydayaccelerator.com/).
+
+# Load up the Project!
+
+To run this project you will need to have an AWS account to generate the API routes. To deploy your code to the live site you will need AWS CLI credentials.
+
+## Create a .env file
+
+Store your restapi_id, region, stage_name in a .env file under the respective names REACT_APP_REST_API_ID, REACT_APP_REGION, REACT_APP_STAGE_NAME.
+
+When using create react app, the convention for .env files is to include REACT_APP_ at the beginning of each variable name so that the application can find the variables. 
+
+Example of the final API Endpoint URL: https://{restapi_id}.execute-api.{region}.amazonaws.com/{stage_name}/
 
 ## Available Scripts
 
@@ -15,11 +26,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `npm run build`
 
@@ -41,16 +47,9 @@ Example of the final script:
 
 "deploy-dev": "aws s3 sync build/ s3://contacts.communitydayaccelerator.com --cache-control max-age=86400 --profile 1234567_ThisIsMy_DeveloperUserAccess --region us-east-2"
 
+# Create React App
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Learn More
 
