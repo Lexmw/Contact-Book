@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Spinner from "react-bootstrap/Spinner";
+import {Toast, ToastBody, ToastContainer, ToastHeader} from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -12,19 +13,26 @@ const EditContactPage = ({ match }) => {
     phone: "",
     notes: ""
   });
+  const [saveToast, setSaveToast] = useState(false);
   const { phone } = useParams();
 
+  const rest_api_id = process.env.REACT_APP_REST_API_ID;
+  const region = process.env.REACT_APP_REGION;
+  const stage_name = process.env.REACT_APP_STAGE_NAME;
+
   useEffect(() => {
-    axios
-      .get(
-        `https://z6lnh50aua.execute-api.us-east-2.amazonaws.com/dev/contact?phone=${phone}`
-      )
-      .then(function (response) {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `https://${rest_api_id}.execute-api.${region}.amazonaws.com/${stage_name}/contact?phone=${phone}`
+        );
         setContact(response.data);
-      })
-      .catch(function (error) {
+      } catch (error) {
         console.log(error);
-      });
+      }
+    };
+
+    fetchData();
   }, []);
 
   const handleInputChange = (e) => {
@@ -32,19 +40,39 @@ const EditContactPage = ({ match }) => {
     setContact({ ...contact, [name]: value });
   };
 
-  const saveContact = () => {
-    axios
-    .put(
-      `https://z6lnh50aua.execute-api.us-east-2.amazonaws.com/dev/updateContact?phone=${phone}`,
-      contact
-    )
-    .catch(function (error) {
-      console.log("Updated New Contact:", phone, error);
-    });
+  const saveContact = async () => {
+    try {
+      await axios.put(
+        `https://${rest_api_id}.execute-api.${region}.amazonaws.com/${stage_name}/updateContact?phone=${phone}`,
+        contact
+      );
+      toastTrigger();
+    } catch (error) {
+      console.log(`Updated Contact: ${phone}`, error);
+    }
   };
+
+  const toastTrigger = () => setSaveToast(!saveToast)
 
   return (
     <div className="edit container my-5 ">
+      <ToastContainer className="toast-container position-fixed bottom-0 end-0 p-3">
+        <Toast
+          show={saveToast}
+          onClose={toastTrigger}
+          className="toast"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+          autohide
+        >
+          <ToastHeader className="toast-header">
+            <strong className="me-auto">Woohoo!</strong>
+          </ToastHeader>
+          <ToastBody className="toast-body">You updated this contact!</ToastBody>
+        </Toast>
+      </ToastContainer>
+
       {contact.firstName === "" ? (
         <div className="spinner d-flex align-items-center justify-content-center position-absolute top-0">
           <Spinner animation="border" variant="dark" />

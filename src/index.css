@@ -12,6 +12,10 @@ code {
     monospace;
 }
 
+.App {
+  text-align: center;
+  padding-top: 50px;
+}
 
 #new-contact-button {
   top:10px;

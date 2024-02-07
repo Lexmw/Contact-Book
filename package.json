@@ -25,7 +25,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy-dev": "aws s3 sync build/ s3://contacts.communitydayaccelerator.com --cache-control max-age=86400"
+    "deploy-dev": ""
   },
   "eslintConfig": {
     "extends": [
